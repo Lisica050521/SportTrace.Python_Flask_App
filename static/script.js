@@ -1,4 +1,18 @@
 <script>
+    // Скрипт для обработки отправки формы достижений
+    window.onload = function() {
+        var form = document.getElementById("achievement-form");
+        form.addEventListener("submit", function(event) {
+            // Обработка пустых полей, замена на "0"
+            var inputs = form.getElementsByTagName("input");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].value === "") {
+                    inputs[i].value = "0";
+                }
+            }
+        });
+    };
+
     // Парсим данные из Flask в JavaScript
     var data = JSON.parse('{{ data | safe }}');
 
