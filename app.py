@@ -26,7 +26,7 @@ def default_if_empty(default_value):
 app = Flask(__name__)
 app.config['CACHE_TYPE'] = 'null'
 app.config['SECRET_KEY'] = 'your_secret_key'  # Ключ для поддержания сессий пользователя
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/noch2/PycharmProjects/SportTrace. Python Flask App/instance/database123.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/noch2/PycharmProjects/SportTrace. Python Flask App/instance/database345.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
