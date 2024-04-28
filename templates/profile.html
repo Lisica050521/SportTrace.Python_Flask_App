@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль - SportTrace</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Ссылка на Chart.js -->
+</head>
+<body>
+    <div class="container">
+        <h1 class="welcome-header">Добро пожаловать, {{ current_user.username }}!</h1>
+
+        <!-- Вывод flash-сообщений -->
+        {% for category, message in flash_messages %}
+            <div class="flash {{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <!-- Форма добавления нового достижения -->
+        <h2 class="welcome-text">Добавить новое достижение:</h2>
+        <form id="achievement-form" action="" method="POST">
+            {{ form.hidden_tag() }}
+            <!-- Поля ввода -->
+            <div class="form-group">
+                <label for="date">Дата:</label>
+                {{ form.date(class="form-control") }}
+                {% for error in form.date.errors %}
+                    <div class="error-message">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="run_distance">Дистанция пробежки:</label>
+                {{ form.run_distance(class="form-control") }}
+                {% for error in form.run_distance.errors %}
+                    <div class="error-message">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="pull_ups">Подтягивания:</label>
+                {{ form.pull_ups(class="form-control") }}
+                {% for error in form.pull_ups.errors %}
+                    <div class="error-message">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="push_ups">Отжимания:</label>
+                {{ form.push_ups(class="form-control") }}
+                {% for error in form.push_ups.errors %}
+                    <div class="error-message">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="upper_abs">Упражнения на верхний пресс:</label>
+                {{ form.upper_abs(class="form-control") }}
+                {% for error in form.upper_abs.errors %}
+                    <div class="error-message">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="lower_abs">Упражнения на нижний пресс:</label>
+                {{ form.lower_abs(class="form-control") }}
+                {% for error in form.lower_abs.errors %}
+                    <div class="error-message">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="glute_bridges">Подкачка ягодиц:</label>
+                {{ form.glute_bridges(class="form-control") }}
+                {% for error in form.glute_bridges.errors %}
+                    <div class="error-message">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <button type="submit" class="btn btn-primary">Добавить достижение</button>
+        </form>
+
+        <!-- График прогресса достижений -->
+        <h2 class="welcome-text achievements-heading">График Прогресса Достижений</h2>
+        <canvas id="plot"></canvas>
+
+        <!-- Таблица с текущими достижениями -->
+        <h2 class="welcome-text achievements-heading">Ваши достижения:</h2>
+        <table class="achievements-table">
+            <tr>
+                <th>Дата</th>
+                <th>Дистанция</th>
+                <th>Подтягивания</th>
+                <th>Отжимания</th>
+                <th>Верхний пресс</th>
+                <th>Нижний пресс</th>
+                <th>Подкачка ягодиц</th>
+                <th>Управление</th>
+            </tr>
+            {% for achievement in achievements %}
+            <tr>
+                <td>{{ achievement.date.strftime('%d.%m.%Y') }}</td> <!-- Форматирование даты -->
+                <td>{{ achievement.run_distance }}</td>
+                <td>{{ achievement.pull_ups }}</td>
+                <td>{{ achievement.push_ups }}</td>
+                <td>{{ achievement.upper_abs }}</td>
+                <td>{{ achievement.lower_abs }}</td>
+                <td>{{ achievement.glute_bridges }}</td>
+                <td>
+                   <form method="POST" action="{{ url_for('delete_achievement', achievement_id=achievement.id) }}">
+                       <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                   </form>
+               </td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+        <!-- Ссылка для выхода из аккаунта -->
+        <a href="{{ url_for('logout') }}" class="btn-logout">Выйти</a>
+    </div>
+
+    <!-- Скрипт для обработки отправки формы достижений -->
+    <script>
+        window.onload = function() {
+            var form = document.getElementById("achievement-form");
+            form.addEventListener("submit", function(event) {
+                // Обработка пустых полей, замена на "0"
+                var inputs = form.getElementsByTagName("input");
+                for (var i = 0; i < inputs.length; i++) {
+                    if (inputs[i].value === "") {
+                        inputs[i].value = "0";
+                    }
+                }
+            });
+        };
+    </script>
+     <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

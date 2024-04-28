@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добро пожаловать в SportTrace!</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="welcome-header">Добро пожаловать в <span class="first-word">Sport</span><span class="second-word">Trace</span>!</h1>
+        <p class="welcome-text">Отслеживайте свои спортивные достижения здесь.</p>
+        <p class="login-register">
+    <a href="{{ url_for('login') }}" class="btn-login">Войдите</a> или
+    <a href="{{ url_for('register') }}" class="btn-register">Зарегистрируйтесь</a>
+        </p>
+    </div>
+</body>
+</html>

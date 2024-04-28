@@ -1,0 +1,222 @@
+/* Общие стили для всего документа */
+body {
+    font-family: "Montserrat", sans-serif;
+    font-style: normal;
+    text-transform: uppercase;
+}
+
+h1, h2, h3, label {
+    color: rgba(31, 32, 65, 1);
+    font-weight: bold;
+}
+
+/* Общие стили */
+
+/* Цвет для "Добро пожаловать в" */
+.welcome-header {
+    color: rgba(31, 32, 65, 1); /* Черный цвет */
+}
+
+/* Градиентный цвет для "Sport Trace" */
+.first-word,
+.second-word {
+    background: linear-gradient(180deg, #bc9cff 0%, #8ba4f9 100%);
+    -webkit-background-clip: text; /* Кроссбраузерная поддержка */
+    -webkit-text-fill-color: transparent; /* Кроссбраузерная поддержка */
+    text-transform: none; /* Отключение преобразования регистра */
+}
+
+
+.container {
+    max-width: 1200px; /* Увеличенная максимальная ширина контейнера */
+    margin: 0 auto;
+    padding-bottom: 20px; /* Внутренний отступ снизу */
+    overflow: hidden;
+    height: auto; /* Изменение высоты контейнера */
+}
+
+#achievement-form {
+    margin-bottom: 40px; /* Увеличение нижнего отступа формы */
+}
+
+/* Общие стили для форм и полей ввода */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+}
+
+input[type="date"],
+input[type="time"],
+input[type="number"],
+.form-control {
+    width: 25%; /* Изменение ширины полей ввода */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-top: 4px;
+    margin-bottom: 10px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Общие стили для всех кнопок */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 15px;
+    background-color: #bc9cff; /* Фиолетовый фон */
+    color: white; /* Белый текст */
+}
+
+//* Стили для кнопки "удалить" */
+.btn-delete {
+    width: 80px; /* Примерная ширина кнопки */
+    background-color: transparent; /* Прозрачный фон */
+    color: #bc9cff; /* Фиолетовый текст */
+    border: 1px solid #bc9cff; /* Фиолетовая рамка */
+    padding: 3px 8px; /* Уменьшение отступов внутри кнопки */
+    font-size: 10px; /* Уменьшение размера шрифта */
+}
+
+/* Изменение стиля кнопок при наведении */
+.btn:hover {
+    background-color: #a88bff; /* Темно-фиолетовый фон при наведении */
+}
+
+.btn-delete:hover {
+    background-color: #bc9cff; /* Фиолетовый фон при наведении */
+    color: white; /* Белый текст при наведении */
+}
+
+/* Стили для кнопки "Войти" */
+.btn-primary {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 25%; /* Ширина кнопки равна 25% от контейнера */
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 15px;
+    background-color: #bc9cff; /* Фиолетовый фон */
+    color: white; /* Белый текст */
+}
+
+/* Стили для кнопки "Выйти" */
+.btn-logout {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 15px;
+    background-color: #bc9cff; /* Фиолетовый фон */
+    color: white; /* Белый текст */
+    margin-top: 20px; /* Отступ сверху */
+    margin-bottom: 20px; /* Увеличивает отступ снизу кнопки */
+}
+
+/* Изменение стиля кнопки "Выйти" при наведении */
+.btn-logout:hover {
+    background-color: #a88bff; /* Темно-фиолетовый фон при наведении */
+}
+
+.btn-login, .btn-register {
+    text-decoration: none; /* Убираем подчеркивание */
+}
+
+.btn-login {
+    width: auto; /* Автоматический размер по содержимому */
+    min-width: 100px; /* Минимальная ширина кнопки */
+    height: 30px; /* Высота кнопки такая же, как у кнопки "Зарегистрируйтесь" */
+    padding: 8px 18px; /* Подобные стили других кнопок */
+    color: #bc9cff;
+    background: #fff;
+    border: 2px solid transparent; /* Толщина бордера 2px */
+    outline: none;
+    border-radius: 20px; /* Более скругленные углы кнопки */
+    cursor: pointer;
+    transition: 0.3s;
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 15px;
+    /* identical to box height */
+    text-transform: uppercase;
+
+    /* Градиентный бордер */
+    border-radius: 20px; /* Более скругленные углы кнопки */
+    border: 2px solid transparent; /* Толщина бордера 2px */
+    border-image: linear-gradient(to right, #bc9cff, #8ba4f9) 1; /* Градиентный бордер */
+}
+
+.btn-login:hover {
+    background-color: #bc9cff; /* Фиолетовый фон при наведении */
+    color: white; /* Белый текст при наведении */
+}
+
+/* Стили для кнопки "Зарегистрируйтесь" */
+.btn-register {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 15px;
+    background-color: #bc9cff; /* Фиолетовый фон */
+    color: white; /* Белый текст */
+}
+
+.btn-register:hover {
+    background-color: #a88bff; /* Темно-фиолетовый фон при наведении */
+}
+
+#plot {
+    width: 100%;    /* Задаёт ширину графика на 100% от своего контейнера */
+    height: 400px;  /* Фиксированная высота, можно изменять по желанию */
+    margin-top: 20px; /* Отступ сверху */
+}
+
+/* Стили для таблицы достижений */
+.achievements-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 40px; /* Увеличенный верхний отступ */
+    margin-bottom: 20px; /* Добавлен нижний отступ */
+}
+
+.achievements-table th,
+.achievements-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.achievements-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* Уменьшаем ширину столбцов таблицы */
+.achievements-table th:first-child,
+.achievements-table td:first-child {
+    width: 100px; /* Примерная ширина первого столбца */
+}
