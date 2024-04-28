@@ -1,117 +1,70 @@
-// Изначальные данные (пустой массив)
-let data = [];
+<script>
+    // Парсим данные из Flask в JavaScript
+    var data = JSON.parse('{{ data | safe }}');
 
-// Функция для обновления графика
-function updatePlot() {
-  // Массивы для хранения данных графика
-  const dates = [];
-  const pull_ups = [];
-  const push_ups = [];
-  const upper_abs = [];
-  const lower_abs = [];
-  const glute_bridges = [];
+    // Выводим данные в консоль для проверки
+    console.log(data);
 
-  // Преобразование данных для Chart.js
-  data.forEach((achievement) => {
-    dates.push(achievement.date);
-    pull_ups.push(achievement.pull_ups);
-    push_ups.push(achievement.push_ups);
-    upper_abs.push(achievement.upper_abs);
-    lower_abs.push(achievement.lower_abs);
-    glute_bridges.push(achievement.glute_bridges);
-  });
-
-  // Построение графика
-  var ctx = document.getElementById('plot').getContext('2d');
-  var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: dates, // Используем даты в качестве меток на графике
-      datasets: [
-        {
-          label: 'Подтягивания',
-          data: pull_ups,
-          borderColor: 'rgba(255, 99, 132, 1)',
-          borderWidth: 1
+    // Конфигурация графика
+    var config = {
+        type: 'line', // тип графика: линейный
+        data: {
+            labels: data.dates, // метки по оси X
+            datasets: [{
+                label: 'Дистанция пробежки',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                data: data.run_distances,
+                fill: false,
+            }, {
+                label: 'Подтягивания',
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                data: data.pull_ups,
+                fill: false,
+            }, {
+                label: 'Отжимания',
+                backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                borderColor: 'rgba(255, 206, 86, 1)',
+                data: data.push_ups,
+                fill: false,
+            }, {
+                label: 'Верхний пресс',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                data: data.upper_abs,
+                fill: false,
+            }, {
+                label: 'Нижний пресс',
+                backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                borderColor: 'rgba(153, 102, 255, 1)',
+                data: data.lower_abs,
+                fill: false,
+            }, {
+                label: 'Подкачка ягодиц',
+                backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                borderColor: 'rgba(255, 159, 64, 1)',
+                data: data.glute_bridges,
+                fill: false,
+            }]
         },
-        {
-          label: 'Отжимания',
-          data: push_ups,
-          borderColor: 'rgba(54, 162, 235, 1)',
-          borderWidth: 1
-        },
-        {
-          label: 'Верхний пресс',
-          data: upper_abs,
-          borderColor: 'rgba(255, 206, 86, 1)',
-          borderWidth: 1
-        },
-        {
-          label: 'Нижний пресс',
-          data: lower_abs,
-          borderColor: 'rgba(75, 192, 192, 1)',
-          borderWidth: 1
-        },
-        {
-          label: 'Подкачка ягодиц',
-          data: glute_bridges,
-          borderColor: 'rgba(153, 102, 255, 1)',
-          borderWidth: 1
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Прогресс достижений'
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
         }
-      ]
-    },
-    options: {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          }
-        }]
-      }
-    }
-  });
-}
-
-// Функция для добавления новых данных
-function addData(newAchievements) {
-  // Преобразование даты и добавление новых данных в массив
-  newAchievements.forEach((newAchievement) => {
-    // Создаем объект с данными
-    const achievementData = {
-      date: newAchievement.date,
-      pull_ups: newAchievement.pull_ups,
-      push_ups: newAchievement.push_ups,
-      upper_abs: newAchievement.upper_abs,
-      lower_abs: newAchievement.lower_abs,
-      glute_bridges: newAchievement.glute_bridges
     };
 
-    // Добавляем данные в массив
-    data.push(achievementData);
-  });
-
-  // Удаление текущего графика
-  removeChart();
-
-  // Обновление графика
-  updatePlot();
-}
-
-// Функция для удаления текущего графика
-function removeChart() {
-  var chartElement = document.getElementById('plot');
-  var chartContext = chartElement.getContext('2d');
-  chartContext.clearRect(0, 0, chartElement.width, chartElement.height);
-}
-
-function logData() {
-  console.log(data);
-}
-
-// Пример использования:
-// Предположим, что у вас есть массив с данными achievements, полученными из таблицы.
-// Вы можете передавать этот массив в функцию addData для отображения на графике.
-const achievements = []; // Ваш массив данных, который будет вводить пользователь
-addData(achievements);
-
-logData();
+    // Инициализация графика
+    var ctx = document.getElementById('plot').getContext('2d');
+    var myChart = new Chart(ctx, config);
+</script>

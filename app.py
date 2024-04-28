@@ -7,6 +7,7 @@ from wtforms.validators import DataRequired, ValidationError
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import desc
 import os
+import json
 import base64
 from datetime import datetime
 
@@ -155,17 +156,24 @@ def profile():
     flash_messages = get_flashed_messages(with_categories=True)
 
     # Формируем данные для графика
-    dates = [achievement.date.strftime('%d.%m.%Y') for achievement in achievements]
-    run_distances = [achievement.run_distance for achievement in achievements]
-    pull_ups = [achievement.pull_ups for achievement in achievements]
-    push_ups = [achievement.push_ups for achievement in achievements]
-    upper_abs = [achievement.upper_abs for achievement in achievements]
-    lower_abs = [achievement.lower_abs for achievement in achievements]
-    glute_bridges = [achievement.glute_bridges for achievement in achievements]
+    data = {
+        'dates': [achievement.date.strftime('%d.%m.%Y') for achievement in achievements],
+        'run_distances': [achievement.run_distance for achievement in achievements],
+        'pull_ups': [achievement.pull_ups for achievement in achievements],
+        'push_ups': [achievement.push_ups for achievement in achievements],
+        'upper_abs': [achievement.upper_abs for achievement in achievements],
+        'lower_abs': [achievement.lower_abs for achievement in achievements],
+        'glute_bridges': [achievement.glute_bridges for achievement in achievements]
+    }
+    # Проверка корректности JSON
+    try:
+        json_data = json.dumps(data)
+        print("JSON корректен.")
+    except Exception as e:
+        print("Ошибка при формировании JSON:", e)
 
-    return render_template('profile.html', achievements=achievements, form=form, flash_messages=flash_messages,
-                           dates=dates, run_distances=run_distances, pull_ups=pull_ups, push_ups=push_ups,
-                           upper_abs=upper_abs, lower_abs=lower_abs, glute_bridges=glute_bridges)
+    return render_template('profile.html', achievements=achievements, form=form, data=json.dumps(data),
+                           flash_messages=get_flashed_messages(with_categories=True))
 
 
 @app.route('/delete_achievement/<int:achievement_id>', methods=['POST'])
